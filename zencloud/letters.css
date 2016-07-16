@@ -1,0 +1,68 @@
+.info {
+  position: absolute;
+  top: 220px;
+  width: 100%;
+  font-weight: bold;
+  color: #444;
+  text-align: center;
+  font-family: sans-serif;
+  font-size: 35px;
+}
+
+.quote {
+  position: relative;
+  top: 15px;
+  width: 100%;
+  
+  color: #444;
+  text-align: center;
+  font-family: sans-serif;
+  font-size: 20px;
+}
+
+.author {
+  position: relative;
+  top: 15px;
+  width: 100%;
+  
+  color: #444;
+  text-align: center;
+  font-family: sans-serif;
+  font-size: 15px;
+}
+
+.zentext {
+  position: relative;
+  top: 130px;
+  left: 50%;
+  margin: -90px -294px;
+  display:block;
+  width:550px;
+  word-wrap:break-word;
+}
+
+.letter {
+  font-family: sans-serif;
+  font-size: 30px;
+}
+
+.fade_once {
+  opacity: 0;
+  -webkit-animation: fade 4s;
+     -moz-animation: fade 4s;
+       -o-animation: fade 4s;
+      -ms-animation: fade 4s;
+          animation: fade 4s;
+}
+
+@-webkit-keyframes fade {
+  0% {opacity: 0;}  
+  50% {opacity: 0.8;}
+  100% {opacity: 0;}
+}
+
+@keyframes fade {
+  0% {opacity: 0;}  
+  50% {opacity: 0.8;}
+  100% {opacity: 0;}
+}
