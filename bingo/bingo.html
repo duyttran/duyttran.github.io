@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" type="text/css" href="bingo.css">
+
+    <title>Create your own bingo cards!</title>
+</head>
+
+<body>
+    <div>
+        <input type="button" id="create" value="Create Bingo", onclick="createBingo()">
+    </div>
+    <div>
+        <label for="bingo-title">Bingo Title</label>
+        <input type="text" id="bingo-title" name="bingo-title">
+    </div>
+    <div id="drop-box" class="drop-box">Drop Files Here</div>
+    <div style="width:100px; height: 100px">Preview Bingo Tiles</div>
+    <div id="preview"></div>
+
+</body>
+<footer>
+    <script src="bingo.js"></script>
+</footer>
+</html>
