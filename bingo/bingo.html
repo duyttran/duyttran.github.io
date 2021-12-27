@@ -10,11 +10,22 @@
 
 <body>
     <div>
-        <input type="button" id="create" value="Create Bingo", onclick="createBingo()">
+        <input type="button" id="create-cards" value="Create Bingo Card", onclick="createBingo()">
     </div>
     <div>
         <label for="bingo-title">Bingo Title</label>
         <input type="text" id="bingo-title" name="bingo-title">
+    </div>
+    <div>
+        <label for="num-cards">Number of Bingo Cards</label>
+        <input type="number" id="num-cards" name="num-cards">
+    </div>
+    <div>
+        <input type="button" id="create-games" value="Create Bingo Games", onclick="createGame()">
+    </div>
+    <div>
+        <label for="num-games">Number of Bingo Games</label>
+        <input type="number" id="num-games" name="num-games">
     </div>
     <div id="drop-box" class="drop-box">Drop Files Here</div>
     <div style="width:100px; height: 100px">Preview Bingo Tiles</div>

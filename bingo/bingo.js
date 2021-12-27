@@ -6,6 +6,9 @@ dropbox.addEventListener("dragenter", dragenter, false);
 dropbox.addEventListener("dragover", dragover, false);
 dropbox.addEventListener("drop", drop, false);
 preview = document.getElementById("preview");
+title = document.getElementById("bingo-title")
+numCards = document.getElementById("num-cards")
+numGames = document.getElementById("num-games")
 
 rawBingoTiles = [];
 
@@ -27,6 +30,7 @@ function drop(e) {
 
     handleFiles(files);
 }
+
 function handleFiles(files) {
     for (let i = 0; i < files.length; i++) {
         const file = files[i];
@@ -40,7 +44,7 @@ function handleFiles(files) {
         img.classList.add("preview-img");
         img.file = file;
         txt = document.createElement("a");
-        txt.innerHTML = file.name
+        txt.innerHTML = file.name.split(".")[0]
 
         imageDiv.appendChild(img)
         imageDiv.appendChild(txt)
@@ -60,25 +64,41 @@ function getBingoTile(file) {
     reader.onload = (function(aImg) { return function(e) { aImg.src = e.target.result; }; })(img);
     reader.readAsDataURL(file);
 
-    txt = document.createElement("a");
-    txt.innerHTML = file.name;
-
     mainDiv = document.createElement("div");
     mainDiv.classList.add("tile");
     imgDiv = document.createElement("div");
+
     txtDiv = document.createElement("div");
+    txtDiv.classList.add("txt-desc")
+    txtDiv.innerHTML = file.name.split(".")[0]
 
     mainDiv.appendChild(imgDiv);
     mainDiv.appendChild(txtDiv);
 
     imgDiv.appendChild(img);
-    txtDiv.appendChild(txt);
 
     return mainDiv;
 }
 
+function getBingoGameItem(file) {
+    const img = document.createElement("img");
+    img.classList.add("preview-img");
+    img.file = file;
+    const reader = new FileReader();
+    reader.onload = (function(aImg) { return function(e) { aImg.src = e.target.result; }; })(img);
+    reader.readAsDataURL(file);
+
+    txt = document.createElement("a");
+    txt.innerHTML = file.name.split(".")[0];
+
+    imageDiv = document.createElement("div");
+    imageDiv.appendChild(img);
+    imageDiv.appendChild(txt);
+    return imageDiv;
+}
+
 function createBingo() {
-    console.log("Creating bingo....");
+    console.log("Creating " + numCards.value + " bingo cards... " + title.value);
     console.log(rawBingoTiles);
     // preprocess tiles
     finalBingoTiles = [];
@@ -87,47 +107,77 @@ function createBingo() {
         finalBingoTiles.push(tile);
     }
 
-
     // generate final printable html
     var printWindow = window.open('', '', 'height=800,width=800');
     printWindow.document.write('<html>');
-    printWindow.document.write('<head><style> .preview-img { width: 100px; height: 80px;} .tile { width: 100px; height: 100px; border: 10px solid gray; } </style></head>')
+    printWindow.document.write('<head><style>');
+    printWindow.document.write('.bingo-card { page-break-after: always; } ')
+    printWindow.document.write('.title { width: 680px; height: 70px; font-size: 50px; text-align: center; border: 10px solid navy; font-family: arial; }');
+    printWindow.document.write('.preview-img { width: 120px; height: 90px;} ');
+    printWindow.document.write('.tile { width: 120px; height: 120px; float: left; border: 10px solid navy; } ');
+    printWindow.document.write('.txt-desc { font-size: 12px; text-align: center; font-family: arial; }');
+    printWindow.document.write('.free-tile { font-size: 30px; text-align: center; font-family: arial; }');
+    printWindow.document.write('</style></head>');
     printWindow.document.write('<body>');
-    printWindow.document.write('<div></div>')
-    printWindow.document.write('<div>');
-    for (let i = 0; i < finalBingoTiles.length; i++) {
-        printWindow.document.write(finalBingoTiles[i].outerHTML);
-        if (i % 5 == 4) {
-            printWindow.document.write('</div><div>')
+
+    for (let i = 0; i < numCards.value; i++) {
+
+        finalBingoTiles.sort(()=> Math.random() - 0.5);
+        printWindow.document.write('<div class="bingo-card">')
+        printWindow.document.write('<div class="title">' + title.value + '</div>');
+        printWindow.document.write('<div>');
+        for (let i = 0; i < 24; i++) {
+            if (i == 12) {
+                printWindow.document.write('<div class="tile free-tile"><br>FREE</div>');
+            }
+            printWindow.document.write(finalBingoTiles[i].outerHTML);
+            if (i % 5 == 4) {
+                printWindow.document.write('</div><div>');
+            }
         }
+        printWindow.document.write('</div>');
+        printWindow.document.write('</div>');
     }
-    printWindow.document.write('</div>')
+
+
     printWindow.document.write('</body></html>');
     printWindow.document.close();
     console.log(printWindow.document);
     printWindow.print();
 }
 
+function createGame() {
+    console.log("Creating " + numGames.value + " bingo games... " + title.value);
+    // preprocess tiles
+    finalBingoTiles = [];
+    for (let i = 0; i < rawBingoTiles.length; i++) {
+        tile = getBingoGameItem(rawBingoTiles[i]);
+        finalBingoTiles.push(tile);
+    }
 
-//function createBingo() {
-//    console.log("Creating bingo....")
-//    console.log(rawBingoTiles)
-//    img1 = getBingoTile(rawBingoTiles[0])
-//
-//    var printWindow = window.open('', '', 'height=800,width=800');
-//    printWindow.document.write('<html>');
-//    printWindow.document.write('<head><style> .preview-img { width: 100px; height: 100px } </style></head>')
-//    printWindow.document.write('<body>');
-//    printWindow.document.write('<div>' + img1.outerHTML + '</div>');
-//    printWindow.document.write('</body></html>');
-//    printWindow.document.close();
-//    console.log(printWindow.document)
-//    printWindow.print();
-//}
+    // generate final printable html
+    var printWindow = window.open('', '', 'height=800,width=800');
+    printWindow.document.write('<html>');
+    printWindow.document.write('<head><style>');
+    printWindow.document.write('.bingo-game { page-break-after: always; } ')
+    printWindow.document.write('.title { width: 680px; height: 70px; font-size: 50px; font-family: arial; }');
+    printWindow.document.write('.preview-img { width: 120px; height: 90px;} ');
+    printWindow.document.write('</style></head>');
+    printWindow.document.write('<body>');
 
-//$('#create').click(function() {
-//    doc.fromHTML($('#preview').html(), 15, 15, {
-//        'width': 170
-//    });
-//    doc.save('sample-file.pdf');
-//});
+    for (let i = 1; i <= numGames.value; i++) {
+        printWindow.document.write('<div class="bingo-game">')
+        printWindow.document.write('<div class="title">' + title.value + ' Game ' + i + ':</div>')
+        finalBingoTiles.sort(()=> Math.random() - 0.5);
+        for (let j = 0; j < finalBingoTiles.length; j++) {
+            printWindow.document.write(finalBingoTiles[j].outerHTML);
+        }
+        printWindow.document.write('</div>')
+    }
+
+
+    printWindow.document.write('</body></html>');
+    printWindow.document.close();
+    console.log(printWindow.document);
+    printWindow.print();
+}
