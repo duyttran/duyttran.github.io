@@ -123,9 +123,9 @@ function createBingo() {
     printWindow.document.write('<html>');
     printWindow.document.write('<head><style>');
     printWindow.document.write('.bingo-card { page-break-after: always; } ')
-    printWindow.document.write('.title { width: 680px; height: 70px; font-size: 50px; text-align: center; border: 10px solid navy; font-family: arial; }');
+    printWindow.document.write('.title { width: 680px; height: 70px; font-size: 50px; text-align: center; border: 10px solid #1c4587; font-family: arial; }');
     printWindow.document.write('.preview-img { width: 120px; height: 90px;} ');
-    printWindow.document.write('.tile { width: 120px; height: 120px; float: left; border: 10px solid navy; } ');
+    printWindow.document.write('.tile { width: 120px; height: 120px; float: left; border: 10px solid #1c4587; } ');
     printWindow.document.write('.txt-desc { font-size: 12px; text-align: center; font-family: arial; }');
     printWindow.document.write('.free-tile { font-size: 30px; text-align: center; font-family: arial; }');
     printWindow.document.write('</style></head>');
