@@ -100,21 +100,12 @@ function getBingoGameItem(file) {
 // random shuffle, use fisher yates
 // https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
 function shuffle(array) {
-  let currentIndex = array.length,  randomIndex;
-
-  // While there remain elements to shuffle.
-  while (currentIndex != 0) {
-
-    // Pick a remaining element.
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex--;
-
-    // And swap it with the current element.
-    [array[currentIndex], array[randomIndex]] = [
-      array[randomIndex], array[currentIndex]];
-  }
-
-  return array;
+    for (var i = array.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
 }
 
 function createBingo() {
@@ -142,7 +133,7 @@ function createBingo() {
 
     for (let i = 0; i < numCards.value; i++) {
 
-        finalBingoTiles(shuffle(finalBingoTiles));
+        shuffle(finalBingoTiles);
         printWindow.document.write('<div class="bingo-card">')
         printWindow.document.write('<div class="title">' + title.value + '</div>');
         printWindow.document.write('<div>');
@@ -188,7 +179,7 @@ function createGame() {
     for (let i = 1; i <= numGames.value; i++) {
         printWindow.document.write('<div class="bingo-game">')
         printWindow.document.write('<div class="title">' + title.value + ' Game ' + i + ':</div>')
-        finalBingoTiles(shuffle(finalBingoTiles));
+        shuffle(finalBingoTiles);
         for (let j = 0; j < finalBingoTiles.length; j++) {
             printWindow.document.write(finalBingoTiles[j].outerHTML);
         }
