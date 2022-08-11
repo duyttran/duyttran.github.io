@@ -1,0 +1,15 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-image: url(in_gratitude_tab.jpg);
+  background-size: 90%;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-position: center;
+  border: 5px;
+}
+
+a {
+  color: #00B7FF;
+}
+
